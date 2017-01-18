@@ -1,0 +1,10 @@
+<transition name="message">
+	<div class="message-box" v-show="message.isShowMessageBox">
+		<div class="message-header">提示</div>
+		<div class="message-text" v-text="message.messageText"></div>
+		<div class="message-btn">
+			<button type="button" class="message-btn-cancel line" @click="cancelMessageBox" v-text="message.leftBtnText"></button>
+			<button type="button" class="message-btn-confirm color" @click="confirmMessageBox" v-text="message.rightBtnText"></button>
+		</div>
+	</div>
+</transition>

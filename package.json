@@ -1,0 +1,19 @@
+{
+  "name": "express-demo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./www/server.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.5.2",
+    "express": "~4.14.0",
+    "mongoose": "^4.7.1",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0",
+    "socket.io": "^1.7.2"
+  }
+}

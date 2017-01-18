@@ -1,0 +1,34 @@
+<%include ./common/header.html%>
+	<div id="js_room_body">
+		<!--loading-->
+		<%include ./common/loading.html%>
+
+		<div class="room-content" v-if="!firstLoading">
+			<div class="room-header">
+				<i class="iconfont icon-fanhui"></i>
+				<span>风花雪月</span>
+				<i class="iconfont icon-icon"></i>
+			</div>
+			<div class="room-time">MARCH 5, 2017</div>
+			<div v-for="msg in userEnterMsg" v-text="msg" style="font-size: 0.6rem;"></div>
+			<ul class="room-list">
+				<li v-for="item in msgList">
+					<i class="iconfont icon-username"></i>
+					<div class="room-list-content">
+						<div class="room-list-msg">
+							<span class="msg-name" v-text="item.userName"></span>
+							<span class="msg-time">6:50 PM</span>
+						</div>
+						<div class="msg-detail" v-text="item.msg"></div>
+					</div>
+				</li>
+			</ul>
+
+			<div class="send-box">
+				<input type="text" placeholder="Your response" v-model="sendMsg">
+				<button type="button" @click="doSendMsg">发送</button>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<%include ./common/footer.html%>

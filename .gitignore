@@ -13,6 +13,8 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.svn
+/node_modules/
 
 # Windows shortcuts
 *.lnk

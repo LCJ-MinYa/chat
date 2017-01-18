@@ -1,0 +1,66 @@
+<%include ./common/header.html%>
+	<div id="js_index_body">
+
+		<!--loading-->
+		<%include ./common/loading.html%>
+
+		<!--index content-->
+		<div class="index-content" v-if="!firstLoading">
+			<!--index head-->
+			<div class="index-header">
+				<i class="iconfont icon-githublogo"></i>
+				<span>Talk with others</span>
+				<div class="header-right-box">
+					<span class="header-right-text" v-if="isLogin" v-text="userName"></span>
+					<span class="header-right-text" v-else @click="goLogin">登录</span>
+				</div>
+			</div>
+
+			<div class="index-content-title">
+				<span>房间列表</span>
+				<span class="title-right">在线人数:322人</span>
+			</div>
+
+			<div class="index-content-list-box" v-for="roomList in roomList" @click="goRoomPage(roomList.roomId)">
+				<div class="index-content-list">
+					<div class="list-top">
+						<span class="recommend">【推荐】</span>
+						<span v-text="roomList.roomName"></span>
+						<i class="iconfont icon-username"></i>
+						<i class="iconfont icon-username"></i>
+						<i class="iconfont icon-username"></i>
+					</div>
+					<span class="list-detail" v-text="roomList.roomDetail"></span>
+				</div>
+			</div>
+
+			<button type="button" class="open-creat-room-btn" @click="openCreatRoomDom">创建房间</button>
+		</div>
+
+		<%include ./common/popup.html%>
+
+		<!--popup wrap-->
+		<%include ./common/allPopupWrap.html%>
+
+		<!--messageBox-->
+		<%include ./common/messageBox.html%>
+
+		<transition name="room">
+			<div class="creat-room-box" v-show="creatRoom.showCreatRoom">
+				<div class="creat-room-header">
+					<span><i class="iconfont icon-chuangjianxiaozu"></i>创建房间</span>
+					<i class="iconfont icon-guanbi" @click="closeCreatRoomDom"></i>
+				</div>
+				<input type="text" v-model="creatRoom.roomName" class="creat-room-name" placeholder="请输入房间名称">
+				<textarea class="creat-room-detail" v-model="creatRoom.roomDetail" placeholder="请输入房间介绍（最多100字）"></textarea>
+				<button type="button" class="creat-room-btn" @click="goCreatRoom" v-bind="{disabled:reqLoading}">
+					<div class="loading-box">
+						<i class="css-loading" v-show="reqLoading"></i>
+						<span class="css-loading-text">创建</span>
+					</div>
+				</button>
+			</div>
+		</transition>
+
+	</div>
+<%include ./common/footer.html%>
