@@ -25,10 +25,17 @@
 			</ul>
 
 			<div class="send-box">
-				<input type="text" placeholder="Your response" v-model="sendMsg">
+				<input type="text" placeholder="写点什么喃..." v-model="sendMsg">
 				<button type="button" @click="doSendMsg">发送</button>
 			</div>
 		</div>
+
+		<!--popup wrap-->
+		<%include ./common/allPopupWrap.html%>
+
+		<!--messageBox-->
+		<%include ./common/messageBox.html%>
+
 	</div>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <%include ./common/footer.html%>

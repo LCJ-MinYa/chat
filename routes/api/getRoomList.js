@@ -15,7 +15,6 @@ router.post('/getRoomList', function(req, res) {
 			utils.sendJson(res, 404, err);
 		} else {
 			if (result) {
-				console.log(result);
 				utils.sendJson(res, 200, '查询房间列表成功', result);
 			} else utils.sendJson(res, 404, '暂无房间列表');
 		}

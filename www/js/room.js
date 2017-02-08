@@ -8,7 +8,7 @@
  * ===========================
  */
 (function() {
-	var socket = io('ws://chat.lichaojun.com:8083');
+	var socket = io('ws://172.16.0.176:8083');
 	var uid = GZL.getCookie('uid');
 	var userName = GZL.getCookie('userName');
 	var roomModel = new Vue({
@@ -20,6 +20,15 @@
 				sendMsg: '',
 				msgList: [],
 				roomName: '',
+				message: {
+					isShowMessageBox: false,
+					messageText: "提示信息",
+					leftBtnText: "返回",
+					rightBtnText: "确认"
+				},
+				creatRoom: {
+					showCreatRoom: false,
+				}
 			}
 		},
 		mounted: function() {
@@ -29,7 +38,6 @@
 				_this.firstLoading = false;
 			})
 			socket.on('connect', function() {
-				console.log("用户连接");
 				socket.emit('enter', {
 					uid: uid,
 					userName: userName
@@ -39,6 +47,8 @@
 			//做进入时其他状态console打印信息调试用
 			socket.on('enter', function(msg) {
 				console.log(msg);
+				_this.message.isShowMessageBox = true;
+				_this.message.messageText = msg;
 			})
 
 			//确认进入房间，页面输出信息告知其他用户
@@ -51,6 +61,9 @@
 				_this.msgList.push({
 					msg: msg,
 					userName: obj.userName
+				});
+				_this.$nextTick(function() {
+					window.scrollTo(0, document.body.scrollHeight);
 				});
 			})
 
@@ -67,7 +80,13 @@
 				}
 			},
 			goBack: function() {
-				window.location.href = history.go(-1);
+				window.location.href = 'index';
+			},
+			cancelMessageBox: function() {
+				window.location.href = 'index';
+			},
+			confirmMessageBox: function() {
+				window.location.href = 'index';
 			}
 		}
 	})

@@ -51,13 +51,19 @@ router.roomSocketIo = function(server) {
 							if (!roomList[roomId]) {
 								roomList[roomId] = [];
 							}
+							for (var i = 0; i < roomList[roomId].length; i++) {
+								if (roomList[roomId][i].uid == nowConnectUser.uid) {
+									nowConnectUser = {};
+									socket.emit('enter', '该用户已存在该聊天室，您可以进入其他聊天室或切换账号!');
+									return;
+								}
+							}
 							roomList[roomId].push(nowConnectUser);
 							socket.join(roomId);
 							//通知房间里面的人
 							socket.to(roomId).emit('enterSuccess', nowConnectUser);
 							//通知自己，即显示在当前页面
 							socket.emit('enterSuccess', nowConnectUser);
-							//roomUserInsert(roomId, nowConnectUser, socket);
 						} else {
 							socket.emit('enter', '房间不存在!');
 						}
@@ -70,11 +76,12 @@ router.roomSocketIo = function(server) {
 
 		// 监听来自客户端的消息
 		socket.on('message', function(msg) {
-			console.log(roomList);
+			if (!roomList[roomId]) {
+				return;
+			}
 			// 验证如果用户不在房间内则不给发送
 			for (var i = 0; i < roomList[roomId].length; i++) {
 				if (roomList[roomId][i].uid == nowConnectUser.uid) {
-					console.log(3214);
 					socket.to(roomId).emit('message', msg, nowConnectUser);
 					socket.emit('message', msg, nowConnectUser);
 					//return;
@@ -89,10 +96,12 @@ router.roomSocketIo = function(server) {
 				if (err) {
 					log.error(err);
 				} else {
+					if (!roomList[roomId] || !nowConnectUser.uid) {
+						return;
+					}
 					for (var i = 0; i < roomList[roomId].length; i++) {
 						console.log('匹配到退出用户');
 						if (roomList[roomId][i].uid == nowConnectUser.uid) roomList[roomId].splice(i, 1);
-						console.log(roomList);
 					}
 					//向当前房间客户端广播用户退出
 					socket.to(roomId).emit('break', nowConnectUser);
