@@ -5,8 +5,8 @@
 
 		<div class="room-content" v-if="!firstLoading">
 			<div class="room-header">
-				<i class="iconfont icon-fanhui"></i>
-				<span>风花雪月</span>
+				<i class="iconfont icon-fanhui" @click="goBack"></i>
+				<span v-text="roomName"></span>
 				<i class="iconfont icon-icon"></i>
 			</div>
 			<div class="room-time">MARCH 5, 2017</div>

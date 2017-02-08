@@ -53,10 +53,10 @@
 						success: function(result) {
 							if (result.status === 200) {
 								GZL.setCookie("uid", result.data.uid, {
-									expires: 24
+									expires: 24 * 7
 								})
 								GZL.setCookie("userName", result.data.userName, {
-									expires: 24
+									expires: 24 * 7
 								})
 								window.location.href = 'index';
 							} else GZL.popue(_this, result.message);
@@ -80,10 +80,10 @@
 						success: function(result) {
 							if (result.status === 200) {
 								GZL.setCookie("uid", result.data.uid, {
-									expires: 24
+									expires: 24 * 7
 								})
 								GZL.setCookie("userName", result.data.userName, {
-									expires: 24
+									expires: 24 * 7
 								})
 								window.location.href = 'index';
 							} else GZL.popue(_this, result.message);

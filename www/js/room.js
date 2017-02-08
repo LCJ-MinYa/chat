@@ -8,7 +8,7 @@
  * ===========================
  */
 (function() {
-	var socket = io('ws://chat.lichaojun.com:8083'); //ws://chat.lichaojun.com:8083
+	var socket = io('ws://chat.lichaojun.com:8083');
 	var uid = GZL.getCookie('uid');
 	var userName = GZL.getCookie('userName');
 	var roomModel = new Vue({
@@ -19,10 +19,12 @@
 				userEnterMsg: [],
 				sendMsg: '',
 				msgList: [],
+				roomName: '',
 			}
 		},
 		mounted: function() {
 			var _this = this;
+			_this.roomName = decodeURI(GZL.GetQueryString("roomName"));
 			this.$nextTick(function() {
 				_this.firstLoading = false;
 			})
@@ -46,7 +48,6 @@
 
 			//接收服务端推送的用户发送信息
 			socket.on('message', function(msg, obj) {
-				console.log(123);
 				_this.msgList.push({
 					msg: msg,
 					userName: obj.userName
@@ -64,6 +65,9 @@
 					socket.emit('message', this.sendMsg);
 					this.sendMsg = "";
 				}
+			},
+			goBack: function() {
+				window.location.href = history.go(-1);
 			}
 		}
 	})

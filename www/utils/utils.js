@@ -33,6 +33,15 @@ var GZL = (function(root, factory) {
         }, 1500);
     };
 
+    //定向获取url参数
+    factory.GetQueryString = function(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return unescape(r[2]);
+        return null;
+    };
+
     /**
      * [ajax 封装ajax]
      * @param  {[object]} options

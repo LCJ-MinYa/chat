@@ -63,9 +63,9 @@
 					}
 				}, this);
 			},
-			goRoomPage: function(id) {
+			goRoomPage: function(roomList) {
 				if (this.isLogin) {
-					if (id) window.location.href = "room?roomId=" + id;
+					if (roomList.roomId) window.location.href = encodeURI(encodeURI("room?roomId=" + roomList.roomId + '&roomName=' + roomList.roomName));
 				} else {
 					this.message.isShowMessageBox = true;
 					this.message.messageText = "您还未登录,是否登录？"
@@ -87,7 +87,7 @@
 			},
 			confirmMessageBox: function() {
 				this.message.isShowMessageBox = false;
-				if (this.isLogin) window.location.href = "room?roomId=" + this.creatRoom.roomId;
+				if (this.isLogin) window.location.href = encodeURI(encodeURI("room?roomId=" + this.creatRoom.roomId + '&roomName=' + this.creatRoom.roomName));
 				else window.location.href = "login";
 			},
 			closeCreatRoomDom: function() {
