@@ -3,10 +3,15 @@ var router = express.Router();
 var socketIo = require('socket.io');
 var utils = require('./utils/utils.js');
 var mongoose = require('mongoose');
+
 require('../model/room.server.module.js');
 var RoomList = mongoose.model('RoomList');
+
 require('../model/roomUserList.server.module.js');
-var roomUserList = mongoose.model('RoomUserList');
+var RoomUserList = mongoose.model('RoomUserList');
+
+require('../model/message.server.module.js');
+var MessageRecord = mongoose.model('MessageRecord');
 
 router.get('/', function(req, res, next) {
 	if (!req.cookies.uid) {
@@ -84,7 +89,8 @@ router.roomSocketIo = function(server) {
 				if (roomList[roomId][i].uid == nowConnectUser.uid) {
 					socket.to(roomId).emit('message', msg, nowConnectUser);
 					socket.emit('message', msg, nowConnectUser);
-					//return;
+					messageInsert(1, nowConnectUser.userName, decodeURI(decodeURI(query.roomName)), roomId, msg);
+					return;
 				}
 			}
 		});
@@ -110,6 +116,25 @@ router.roomSocketIo = function(server) {
 		});
 
 	});
+
+	//将用户发送的消息保存在服务器
+	var messageInsert = function(type, userName, roomName, roomId, message) {
+		var content = {
+			type: type,
+			userName: userName,
+			roomName: roomName,
+			roomId: roomId,
+			message: message
+		}
+		var newMessage = new MessageRecord(content);
+		newMessage.save(function(err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log('保存成功一条用户发送的信息');
+			}
+		})
+	}
 
 	//将连接用户插入房间
 	var roomUserInsert = function(roomId, obj, socket) {
