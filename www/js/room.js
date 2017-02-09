@@ -8,7 +8,7 @@
  * ===========================
  */
 (function() {
-	var socket = io('ws://172.16.0.176:8083');
+	var socket = io('ws://chat.lichaojun.com:8083');
 	var uid = GZL.getCookie('uid');
 	var userName = GZL.getCookie('userName');
 	var roomModel = new Vue({
@@ -16,7 +16,7 @@
 		data: function() {
 			return {
 				firstLoading: true,
-				userEnterMsg: [],
+				userNum: '',
 				sendMsg: '',
 				msgList: [],
 				roomName: '',
@@ -52,15 +52,17 @@
 			})
 
 			//确认进入房间，页面输出信息告知其他用户
-			socket.on('enterSuccess', function(obj) {
-				_this.userEnterMsg.push(obj.userName + '进入了房间');
+			socket.on('enterSuccess', function(num) {
+				_this.userNum = num + '人在线';
 			})
 
 			//接收服务端推送的用户发送信息
-			socket.on('message', function(msg, obj) {
+			socket.on('message', function(msg, obj, isMyself, time) {
 				_this.msgList.push({
 					msg: msg,
-					userName: obj.userName
+					userName: obj.userName,
+					isMyself: isMyself,
+					time: time
 				});
 				_this.$nextTick(function() {
 					window.scrollTo(0, document.body.scrollHeight);
@@ -69,7 +71,7 @@
 
 			//做进入时其他状态console打印信息调试用
 			socket.on('break', function(obj) {
-				_this.userEnterMsg.push(obj.userName + '退出了房间');
+				_this.userNum = num + '人在线';
 			})
 		},
 		methods: {

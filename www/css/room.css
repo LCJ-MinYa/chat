@@ -82,10 +82,9 @@ ul.room-list li{
 }
 .room-list-content{
 	margin: 0 0.5rem 1rem 2rem;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0,0,0,0.8);
 	border-radius: 0.2rem;
 	color: #f1f1f1;
-	min-height: 5rem;
 }
 .room-list-msg span{
 	font-size: 0.65rem;
@@ -105,6 +104,14 @@ ul.room-list li{
 	font-size: 0.6rem;
 	padding: 0 0.5rem 0.5rem 0.5rem;
 	line-height: 120%;
+}
+.icon-myself{
+	float: right;
+}
+.content-myself{
+	margin: 0 2rem 1rem 0.5rem;
+	background: #eacb20;
+	color: #000;
 }
 
 .send-box{

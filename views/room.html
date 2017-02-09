@@ -9,17 +9,28 @@
 				<span v-text="roomName"></span>
 				<i class="iconfont icon-icon"></i>
 			</div>
-			<div class="room-time">MARCH 5, 2017</div>
-			<div v-for="msg in userEnterMsg" v-text="msg" style="font-size: 0.6rem;"></div>
+			<div class="room-time" v-text="userNum"></div>
 			<ul class="room-list">
 				<li v-for="item in msgList">
-					<i class="iconfont icon-username"></i>
-					<div class="room-list-content">
-						<div class="room-list-msg">
-							<span class="msg-name" v-text="item.userName"></span>
-							<span class="msg-time">6:50 PM</span>
+					<div v-if="!item.isMyself">
+						<i class="iconfont icon-username"></i>
+						<div class="room-list-content">
+							<div class="room-list-msg">
+								<span class="msg-name" v-text="item.userName"></span>
+								<span class="msg-time" v-text="item.time"></span>
+							</div>
+							<div class="msg-detail" v-text="item.msg"></div>
 						</div>
-						<div class="msg-detail" v-text="item.msg"></div>
+					</div>
+					<div v-else>
+						<i class="iconfont icon-username icon-myself"></i>
+						<div class="room-list-content content-myself">
+							<div class="room-list-msg">
+								<span class="msg-name">ME</span>
+								<span class="msg-time" v-text="item.time"></span>
+							</div>
+							<div class="msg-detail" v-text="item.msg"></div>
+						</div>
 					</div>
 				</li>
 			</ul>

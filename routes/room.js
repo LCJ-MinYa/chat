@@ -3,6 +3,7 @@ var router = express.Router();
 var socketIo = require('socket.io');
 var utils = require('./utils/utils.js');
 var mongoose = require('mongoose');
+var moment = require('moment');
 
 require('../model/room.server.module.js');
 var RoomList = mongoose.model('RoomList');
@@ -34,6 +35,7 @@ router.roomSocketIo = function(server) {
 	var allUserList = [];
 	//所有房间列表
 	var roomList = {};
+	var nowConnectUserNum = 0;
 
 	//连接房间
 	io.on('connection', function(socket) {
@@ -65,10 +67,13 @@ router.roomSocketIo = function(server) {
 							}
 							roomList[roomId].push(nowConnectUser);
 							socket.join(roomId);
+
+							nowConnectUserNum++;
+							console.log('在线人数' + nowConnectUserNum);
 							//通知房间里面的人
-							socket.to(roomId).emit('enterSuccess', nowConnectUser);
+							socket.to(roomId).emit('enterSuccess', nowConnectUserNum);
 							//通知自己，即显示在当前页面
-							socket.emit('enterSuccess', nowConnectUser);
+							socket.emit('enterSuccess', nowConnectUserNum);
 						} else {
 							socket.emit('enter', '房间不存在!');
 						}
@@ -87,8 +92,9 @@ router.roomSocketIo = function(server) {
 			// 验证如果用户不在房间内则不给发送
 			for (var i = 0; i < roomList[roomId].length; i++) {
 				if (roomList[roomId][i].uid == nowConnectUser.uid) {
-					socket.to(roomId).emit('message', msg, nowConnectUser);
-					socket.emit('message', msg, nowConnectUser);
+					var msgTime = moment().format('h:mm A');
+					socket.to(roomId).emit('message', msg, nowConnectUser, 0, msgTime);
+					socket.emit('message', msg, nowConnectUser, 1, msgTime);
 					messageInsert(1, nowConnectUser.userName, decodeURI(decodeURI(query.roomName)), roomId, msg);
 					return;
 				}
@@ -106,11 +112,15 @@ router.roomSocketIo = function(server) {
 						return;
 					}
 					for (var i = 0; i < roomList[roomId].length; i++) {
-						console.log('匹配到退出用户');
-						if (roomList[roomId][i].uid == nowConnectUser.uid) roomList[roomId].splice(i, 1);
+						if (roomList[roomId][i].uid == nowConnectUser.uid) {
+							roomList[roomId].splice(i, 1);
+							nowConnectUserNum--;
+							console.log('匹配到退出用户' + nowConnectUserNum);
+							break;
+						}
 					}
 					//向当前房间客户端广播用户退出
-					socket.to(roomId).emit('break', nowConnectUser);
+					socket.to(roomId).emit('break', nowConnectUserNum);
 				}
 			})
 		});
