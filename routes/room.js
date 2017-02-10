@@ -31,11 +31,12 @@ router.get('/', function(req, res, next) {
 router.roomSocketIo = function(server) {
 	var io = socketIo.listen(server);
 
-	//所有在线用户
+	//所有在线用户列表
 	var allUserList = [];
 	//所有房间列表
 	var roomList = {};
-	var nowConnectUserNum = 0;
+	//所有在线用户数量
+	var allConnectUserNum = 0;
 
 	//连接房间
 	io.on('connection', function(socket) {
@@ -65,15 +66,27 @@ router.roomSocketIo = function(server) {
 									return;
 								}
 							}
+							/*
+							 * 处理当前房间逻辑
+							 * roomId 当前房间ID
+							 * roomList[roomId]当前房间所有在线用户信息
+							 */
 							roomList[roomId].push(nowConnectUser);
 							socket.join(roomId);
-
-							nowConnectUserNum++;
-							console.log('在线人数' + nowConnectUserNum);
 							//通知房间里面的人
-							socket.to(roomId).emit('enterSuccess', nowConnectUserNum);
+							socket.to(roomId).emit('enterSuccess', roomList[roomId].length);
 							//通知自己，即显示在当前页面
-							socket.emit('enterSuccess', nowConnectUserNum);
+							socket.emit('enterSuccess', roomList[roomId].length);
+
+							/*
+							 * 处理所有房间逻辑
+							 * allConnectUserNum 所有房间在线总人数
+							 * allUserList 所有房间在线用户信息 allUserList.push(nowConnectUser);
+							 */
+							allConnectUserNum++;
+							roomUserInsert(roomId, nowConnectUser);
+							console.log('总在线人数' + allConnectUserNum);
+							console.log('当前房间在线人数' + roomList[roomId].length);
 						} else {
 							socket.emit('enter', '房间不存在!');
 						}
@@ -114,13 +127,15 @@ router.roomSocketIo = function(server) {
 					for (var i = 0; i < roomList[roomId].length; i++) {
 						if (roomList[roomId][i].uid == nowConnectUser.uid) {
 							roomList[roomId].splice(i, 1);
-							nowConnectUserNum--;
-							console.log('匹配到退出用户' + nowConnectUserNum);
+							allConnectUserNum--;
+							roomUserRemove(roomId, nowConnectUser);
+							console.log('匹配到退出用户,总人数' + allConnectUserNum);
+							console.log('匹配到退出用户,当前房间人数' + roomList[roomId].length);
 							break;
 						}
 					}
 					//向当前房间客户端广播用户退出
-					socket.to(roomId).emit('break', nowConnectUserNum);
+					socket.to(roomId).emit('break', roomList[roomId].length);
 				}
 			})
 		});
@@ -146,19 +161,54 @@ router.roomSocketIo = function(server) {
 		})
 	}
 
-	//将连接用户插入房间
-	var roomUserInsert = function(roomId, obj, socket) {
-		var content = {
-			roomId: roomId,
-			uid: obj.uid,
-			userName: obj.userName
-		}
-		var roomUser = new roomUserList(content);
-		roomUser.save(function(err) {
+	//将连接用户存储到用户列表数据库
+	var roomUserInsert = function(roomId, obj) {
+		RoomUserList.findOne({
+			roomId: roomId
+		}, function(err, result) {
 			if (err) {
-				socket.emit('enter', err);
+				console.log(err);
 			} else {
-				socket.emit('enter', '保存房间人数成功!');
+				if (result) {
+					result.roomUserList.push(obj);
+					result.save(function(err) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log("保存到用户列表成功");
+						}
+					});
+				} else {
+					console.log("未找到该房间用户列表，无法插入该用户");
+				}
+			}
+		})
+	}
+
+	//将连接用户从用户列表数据库中删除
+	var roomUserRemove = function(roomId, obj) {
+		RoomUserList.findOne({
+			roomId: roomId
+		}, function(err, result) {
+			if (err) {
+				console.log(err);
+			} else {
+				if (result) {
+					for (var i = 0; i < result.roomUserList.length; i++) {
+						if (result.roomUserList[i].uid == obj.uid) {
+							result.roomUserList.splice(i, 1);
+							result.save(function(err) {
+								if (err) {
+									console.log(err);
+								} else {
+									console.log("删除用户列表成功");
+								}
+							});
+						}
+					}
+				} else {
+					console.log("未找到该房间用户列表，无法删除该用户");
+				}
 			}
 		})
 	}

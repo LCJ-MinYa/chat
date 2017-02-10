@@ -14,8 +14,9 @@
 			return {
 				firstLoading: true,
 				uid: GZL.getCookie("uid"),
-				userName: "欢迎您：" + GZL.getCookie("userName"),
+				userName: GZL.getCookie("userName"),
 				roomList: [],
+				onLineUser: 0,
 				message: {
 					isShowMessageBox: false,
 					messageText: "提示信息",
@@ -38,9 +39,6 @@
 		mounted: function() {
 			var _this = this;
 			this.getRoomListMsg();
-			this.$nextTick(function() {
-				_this.firstLoading = false;
-			})
 		},
 		computed: {
 			isLogin: function() {
@@ -58,8 +56,9 @@
 						pageIndex: 1,
 					},
 					success: function(result) {
-						console.log(result);
+						_this.firstLoading = false;
 						_this.roomList = result.data;
+						_this.onLineUser = result.message;
 					}
 				}, this);
 			},

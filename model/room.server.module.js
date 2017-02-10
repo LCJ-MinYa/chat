@@ -13,6 +13,10 @@ var RoomListSchema = new mongoose.Schema({
 	roomName: String,
 	roomDetail: String,
 	roomId: String,
+	userNum: {
+		type: Number,
+		default: 0
+	}
 })
 
 mongoose.model('RoomList', RoomListSchema, "RoomList");

@@ -5,12 +5,10 @@ var db = require('../config/mongoose.js');
 //申明一个mongoons对象
 var RoomUserListSchema = new mongoose.Schema({
 	roomId: String,
-	uid: String,
-	userName: String,
-	addTime: {
-		type: Date,
-		default: new Date()
-	}
+	roomUserList: [],
+	//uid: String,
+	//userName: String,
+	//addTime: Date,
 })
 
 mongoose.model('RoomUserList', RoomUserListSchema, "RoomUserList");

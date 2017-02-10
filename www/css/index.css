@@ -1,13 +1,17 @@
 html{
+	width: 100%;
 	min-height: 100%;
 }
 body{
+	width: 100%;
+	min-height: 100%;
 	background-attachment: fixed;
 	background: url(https://imio.oss-cn-shanghai.aliyuncs.com/chat/img/index-bg.jpg) no-repeat center center/cover;
 }
 
 #js_index_body{
 	width: 100%;
+	min-height: 100%;
 	overflow: hidden;
 	color: #fff;
 }
@@ -18,6 +22,7 @@ body{
 	overflow: hidden;
 	position: relative;
 	z-index: 10;
+	margin-bottom: 2.5rem;
 }
 .index-header{
 	width: 100%;
@@ -43,7 +48,7 @@ body{
 }
 .header-right-text{
 	padding: 0.1rem 0.4rem;
-	border: 1px solid #eacb20;
+	color: #e1e1e1;
 	border-radius: 0.2rem;
 	line-height: 1;
 }
@@ -78,7 +83,6 @@ body{
 	margin-bottom: 1rem;
 	padding-left: 0.5rem;
 	font-size: 0.6rem;
-	line-height: 300%;
 	background: rgba(30,30,30,0.5);
 }
 .index-content-list:nth-child(1n){
@@ -99,6 +103,7 @@ body{
 .list-top{
 	font-size: 0.55rem;
 	padding-right: 0.5rem;
+	line-height: 300%;
 }
 .recommend{
 	color: #eacb20;
@@ -107,24 +112,55 @@ body{
 	display: inline-block;
 	float: right;
 	margin-left: 0.4rem;
+	font-size: 0.55rem;
+}
+.font-size-color{
+	color: #e1e1e1;
+}
+.list-top i span{
+	display: inline-block;
+	padding-left: 0.2rem;
+	font-size: 0.6rem;
+	color: #e1e1e1;
 }
 .list-detail{
-	font-size: 0.5rem;
+	display: inline-block;
+	font-size: 0.55rem;
+	line-height: 150%;
+	padding-right: 0.5rem;
+	padding-bottom: 0.5rem;
+	color: #e1e1e1;
 }
-
-.open-creat-room-btn{
+.index-footer{
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2.5rem;
+	z-index: 9999;
+	background: rgba(50,50,50,0.8);
+}
+.login-foot-box{
 	position: relative;
-	width: 60%;
-	height: 2rem;
-	margin: 0.5rem 0 1.5rem 0;
-	background: #eacb20;
-	border-radius: 1rem;
+	width: 100%;
+	height: 2.5rem;
 	text-align: center;
-	color: #fff;
-	font-size: 0.9rem;
-	line-height: 2rem;
+	line-height: 2.5rem;
+	border-top:1px solid rgba(234,203,32,0.8);
 	left: 50%;
-	margin-left: -30%;
+	margin-left: -50%;
+	display: box;
+	display:-moz-box;
+	display: -webkit-box;
+}
+.login-foot-box span{
+	display:block;
+	box-flex:1;
+	-moz-box-flex:1;
+	-webkit-box-flex:1;
+	position: relative;
+	font-size: 0.7rem;
+	color:#fff;
 }
 
 /*creat-room-dom*/

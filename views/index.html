@@ -9,32 +9,36 @@
 			<!--index head-->
 			<div class="index-header">
 				<i class="iconfont icon-githublogo"></i>
-				<span>Talk with others</span>
+				<span>Talk</span>
 				<div class="header-right-box">
-					<span class="header-right-text" v-if="isLogin" v-text="userName"></span>
+					<span class="header-right-text" v-if="isLogin">欢迎：{{userName}}</span>
 					<span class="header-right-text" v-else @click="goLogin">登录</span>
 				</div>
 			</div>
 
-			<div class="index-content-title">
+			<div class="index-content-title font-size-color">
 				<span>房间列表</span>
-				<span class="title-right">在线人数:322人</span>
+				<span class="title-right">在线人数：{{onLineUser}}人</span>
 			</div>
 
 			<div class="index-content-list-box" v-for="roomList in roomList" @click="goRoomPage(roomList)">
 				<div class="index-content-list">
 					<div class="list-top">
 						<span class="recommend">【推荐】</span>
-						<span v-text="roomList.roomName"></span>
-						<i class="iconfont icon-username"></i>
-						<i class="iconfont icon-username"></i>
-						<i class="iconfont icon-username"></i>
+						<span class="font-size-color" v-text="roomList.roomName"></span>
+						<i class="iconfont icon-username"><span v-text="roomList.userNum"></span></i>
 					</div>
 					<span class="list-detail" v-text="roomList.roomDetail"></span>
 				</div>
 			</div>
 
-			<button type="button" class="open-creat-room-btn" @click="openCreatRoomDom">创建房间</button>
+		</div>
+
+		<!--foot-->
+		<div class="index-footer">
+			<div class="login-foot-box">
+				<span @click="openCreatRoomDom">创建房间</span>
+			</div>
 		</div>
 
 		<%include ./common/popup.html%>

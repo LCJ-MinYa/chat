@@ -40,7 +40,8 @@
 			socket.on('connect', function() {
 				socket.emit('enter', {
 					uid: uid,
-					userName: userName
+					userName: userName,
+					roomId: GZL.GetQueryString("roomId")
 				});
 			})
 
@@ -70,7 +71,7 @@
 			})
 
 			//做进入时其他状态console打印信息调试用
-			socket.on('break', function(obj) {
+			socket.on('break', function(num) {
 				_this.userNum = num + '人在线';
 			})
 		},
