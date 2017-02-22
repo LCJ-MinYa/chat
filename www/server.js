@@ -4,6 +4,7 @@ var http = require('http');
 var config = require('../config/config.js');
 var port = config.port || '3000';
 app.set('port', port);
+app.disable('x-powered-by');
 
 var server = http.createServer(app);
 app.ready(server); //room房间
