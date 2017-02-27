@@ -8,7 +8,7 @@
  * ===========================
  */
 (function() {
-	var socket = io('ws://chat.lichaojun.com:8083');
+	var socket = io('ws://172.16.0.176:8083');
 	var uid = GZL.getCookie('uid');
 	var userName = GZL.getCookie('userName');
 	var roomModel = new Vue({
