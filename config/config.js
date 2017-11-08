@@ -3,6 +3,6 @@
  * config
  */
 module.exports = {
-	mongodb: "mongodb://chatRoot:123456@139.196.143.71:9000/chat",
+	mongodb: "mongodb://chatRoot:123456@106.15.193.97:9000/chat",
 	port: 8083
 }

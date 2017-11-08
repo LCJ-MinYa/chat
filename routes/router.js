@@ -32,11 +32,13 @@ module.exports = function(app, express, path) {
 	app.use('/api', getRoomList);
 
 
-	app.use(express.static(path.join(__dirname, '../www')));
+	app.use(express.static(path.join(__dirname, '../www'), {
+		maxAge: 1000 * 60 * 60
+	}));
 
 	//404和错误程序处理
 	app.use(function(req, res, next) {
-		var err = new Error('Not Found');
+		var err = new Error('目录不存在，请检查');
 		err.status = 404;
 		next(err);
 	});
