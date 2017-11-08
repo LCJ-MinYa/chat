@@ -41,7 +41,14 @@ html,body{
 	font-size: 1.6rem;
 }
 .register-input-box{
+	position: absolute;
 	top:35%;
+	left: 50%;
+	width: 80%;
+	overflow: hidden;
+	margin-left: -40%;
+	color: #f1f1f1;
+	font-size: 1.6rem;
 }
 .login-username{
 	position: relative;
@@ -129,3 +136,41 @@ html,body{
 .btn-width{
 	width: 2.7rem;
 }
+
+/*loginShow动画*/
+.loginShow-enter{
+	transform: translateX(-100%);
+  	opacity: 0;
+}
+.loginShow-enter-active {
+  	transition: all .5s ease;
+}
+.loginShow-leave-active {
+	transform: translateX(-100%);
+	opacity: 0;
+  	transition: all .5s ease;
+}
+
+/*registerShow动画*/
+.registerShow-enter{
+	transform: translateX(100%);
+  	opacity: 0;
+}
+.registerShow-enter-active {
+  	transition: all .5s ease;
+}
+.registerShow-leave-active {
+	transform: translateX(100%);
+	opacity: 0;
+  	transition: all .5s ease;
+}
+
+
+
+
+
+
+
+
+
+
