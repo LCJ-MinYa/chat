@@ -7,11 +7,11 @@ require('../../model/user.server.module.js');
 var User = mongoose.model('User');
 
 /* GET home page. */
-router.get('/register', function(req, res) {
+router.get('/forget', function(req, res) {
 	res.send("请求资源不支持HTTP方法GET访问！");
 });
 
-router.post('/register', function(req, res) {
+router.post('/forget', function(req, res) {
 	User.findOne({
 		email: req.body.email
 	}, function(err, result) {
@@ -19,28 +19,9 @@ router.post('/register', function(req, res) {
 			utils.sendJson(res, 404, err);
 		} else {
 			if (result) {
-				utils.sendJson(res, 404, '该邮箱地址已注册');
-			} else {
-				userInsert();
-			}
-		}
-	})
-
-	var userInsert = function() {
-		var content = {
-			userName: req.body.userName,
-			email: req.body.email,
-			password: '',
-			uid: utils.generateUUID()
-		}
-		var user = new User(content);
-		user.save(function(err) {
-			if (err) {
-				utils.sendJson(res, 404, err);
-			} else {
-				var subject = '恣意游用户验证';
-				var url = req.protocol + "://" + req.get('host') + '/login?uid=' + content.uid;
-				var html = '<p>亲爱的用户:</p><br/><p>感谢您注册恣意游.</p><p>请点击以下链接完成注册</p>';
+				var subject = '恣意游用户重置密码';
+				var url = req.protocol + "://" + req.get('host') + '/login?uid=' + result.uid;
+				var html = '<p>亲爱的用户:</p><br/><p>感谢您使用恣意游重置密码功能.</p><p>请点击以下链接完成重置功能</p>';
 				html += '<p><a href="' + url + '">' + url + '</a></p>';
 				mail.sendMail(req.body.email, subject, html, function(result) {
 					if (result.status == 200) {
@@ -49,9 +30,11 @@ router.post('/register', function(req, res) {
 						utils.sendJson(res, 404, result.message);
 					}
 				})
+			} else {
+				utils.sendJson(res, 404, '该邮箱地址暂未注册');
 			}
-		})
-	}
+		}
+	})
 });
 
 module.exports = router;

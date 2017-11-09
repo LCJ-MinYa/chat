@@ -41,14 +41,7 @@ html,body{
 	font-size: 1.6rem;
 }
 .register-input-box{
-	position: absolute;
 	top:35%;
-	left: 50%;
-	width: 80%;
-	overflow: hidden;
-	margin-left: -40%;
-	color: #f1f1f1;
-	font-size: 1.6rem;
 }
 .login-username{
 	position: relative;
@@ -70,7 +63,7 @@ html,body{
 	background: rgba(0,0,0,0);
 	color:#fff;
 }
-.icon-username,.icon-password{
+.icon-username, .icon-password, .icon-1{
 	color: #eacb20;
 	font-size: 1rem;
 	text-align: center;

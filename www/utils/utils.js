@@ -22,7 +22,9 @@ var GZL = (function(root, factory) {
         LOGIN: "/api/login",
         REGISTER: "/api/register",
         CREATROOM: "/api/creatRoom",
-        ROOMLIST: "/api/getRoomList"
+        ROOMLIST: "/api/getRoomList",
+        RESET: "/api/reset",
+        FORGET: "/api/forget",
     };
 
     factory.popue = function(_this, text) {
@@ -41,6 +43,12 @@ var GZL = (function(root, factory) {
             return unescape(r[2]);
         return null;
     };
+
+    //邮箱地址正则表达式判断
+    factory.MatchEmail = function(string) {
+        var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+        return reg.test(string);
+    }
 
     /**
      * [ajax 封装ajax]

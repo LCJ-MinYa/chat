@@ -13,14 +13,14 @@
 				<transition name="loginShow">
 					<div class="login-input-box" v-show="!firstLoading && login">
 						<div class="login-username">
-							<i class="iconfont icon-username"></i>
-							<input type="text" class="login-input" maxlength="15" v-model="userName" placeholder="请输入您的账号">
+							<i class="iconfont icon-1"></i>
+							<input type="text" class="login-input" maxlength="30" v-model="email" placeholder="请输入您的邮箱地址">
 						</div>
 						<div class="login-username login-password">
 							<i class="iconfont icon-password"></i>
 							<input type="password" class="login-input" v-model="password" maxlength="15" placeholder="请输入您的密码">
 						</div>
-						<button type="button" class="login-btn" @click="userLogin" v-bind="{disabled:reqLoading}">
+						<button type="button" class="login-btn" @click="checkOutMsg('login')" v-bind="{disabled:reqLoading}">
 							<div class="login-btn-box" :class="{'btn-width':reqLoading}">
 								<i class="css-loading" v-if="reqLoading"></i>
 								<i class="login-btn-text">登录</i>
@@ -29,29 +29,71 @@
 					</div>
 				</transition>
 
+				<!--register-->
 				<transition name="registerShow">
-					<div class="register-input-box" v-show="!firstLoading && register">
+					<div class="login-input-box" v-show="!firstLoading && register">
 						<div class="login-username">
+							<i class="iconfont icon-1"></i>
+							<input type="text" class="login-input" maxlength="30" v-model="email" placeholder="请输入您的邮箱地址">
+						</div>
+						<div class="login-username login-password">
 							<i class="iconfont icon-username"></i>
-							<input type="text" class="login-input" maxlength="15" v-model="userName" placeholder="请输入您的账号">
+							<input type="text" class="login-input" maxlength="30" v-model="userName" placeholder="请输入您的昵称">
 						</div>
-						<div class="login-username register-password">
+						<button type="button" class="login-btn" @click="checkOutMsg('register')" v-bind="{disabled:reqLoading}">
+							<div class="login-btn-box" :class="{'btn-width':reqLoading}">
+								<i class="css-loading" v-if="reqLoading"></i>
+								<i class="login-btn-text">验证</i>
+							</div>
+						</button>
+					</div>
+				</transition>
+
+				<!--forget-->
+				<transition name="registerShow">
+					<div class="login-input-box" v-show="!firstLoading && forget">
+						<div class="login-username">
+							<i class="iconfont icon-1"></i>
+							<input type="text" class="login-input" maxlength="30" v-model="email" placeholder="请输入您的邮箱地址">
+						</div>
+						<div class="login-username login-password">
 							<i class="iconfont icon-password"></i>
-							<input type="password" class="login-input" maxlength="15" v-model="password" placeholder="请输入您的密码">
+							<input type="password" class="login-input" v-model="password" maxlength="15" placeholder="请输入验证码">
 						</div>
-						<div class="login-username register-password">
+						<button type="button" class="login-btn" @click="checkOutMsg('forget')" v-bind="{disabled:reqLoading}">
+							<div class="login-btn-box" :class="{'btn-width':reqLoading}">
+								<i class="css-loading" v-if="reqLoading"></i>
+								<i class="login-btn-text">验证</i>
+							</div>
+						</button>
+					</div>
+				</transition>
+
+				<!--reset-->
+				<transition name="registerShow">
+					<div class="login-input-box" v-show="!firstLoading && reset">
+						<div class="login-username">
 							<i class="iconfont icon-password"></i>
-							<input type="password" class="login-input" maxlength="15" v-model="confirmPassword" placeholder="请确认您的密码">
+							<input type="password" class="login-input" v-model="password" maxlength="15" placeholder="请输入您的密码">
 						</div>
-						<input type="submit" class="login-btn register-btn" value="点击注册" @click="userRegister">
+						<div class="login-username login-password">
+							<i class="iconfont icon-password"></i>
+							<input type="password" class="login-input" v-model="confirmPassword" maxlength="15" placeholder="请确认您的密码">
+						</div>
+						<button type="button" class="login-btn" @click="checkOutMsg('password')" v-bind="{disabled:reqLoading}">
+							<div class="login-btn-box" :class="{'btn-width':reqLoading}">
+								<i class="css-loading" v-if="reqLoading"></i>
+								<i class="login-btn-text">重置</i>
+							</div>
+						</button>
 					</div>
 				</transition>
 
 				<!--foot-->
 				<div class="login-foot-box">
-					<span>忘记密码</span>
-					<span @click="toggleShow" v-show="login">点击注册</span>
-					<span @click="toggleShow" v-show="register">返回登录</span>
+					<span @click="toggleShow('forget')" v-show="login">忘记密码</span>
+					<span @click="toggleShow('register')" v-show="login">点击注册</span>
+					<span @click="toggleShow" v-show="register || forget || reset">已有账号，直接登录</span>
 				</div>
 			</div>
 		</transition>

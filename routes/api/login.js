@@ -12,17 +12,20 @@ router.get('/login', function(req, res) {
 
 router.post('/login', function(req, res) {
 	User.findOne({
-		userName: req.body.userName
+		email: req.body.email
 	}, function(err, result) {
 		if (err) {
 			utils.sendJson(res, 404, err);
 		} else {
 			if (result) {
-				if (result.password == req.body.password) utils.sendJson(res, 200, '登录成功', {
-					uid: result.uid,
-					userName: result.userName
-				});
-				else utils.sendJson(res, 404, '密码错误');
+				if (result.password == req.body.password && result.password) {
+					utils.sendJson(res, 200, '登录成功', {
+						uid: result.uid,
+						userName: result.userName
+					});
+				} else {
+					utils.sendJson(res, 404, '密码错误');
+				}
 			} else {
 				utils.sendJson(res, 404, '用户不存在');
 			}

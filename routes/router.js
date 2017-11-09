@@ -26,6 +26,10 @@ module.exports = function(app, express, path) {
 	app.use('/api', loginApi);
 	var registerApi = require('./api/register');
 	app.use('/api', registerApi);
+	var resetApi = require('./api/reset.js');
+	app.use('/api', resetApi);
+	var forgetApi = require('./api/forget.js');
+	app.use('/api', forgetApi);
 	var creatRoomApi = require('./api/creatRoom.js');
 	app.use('/api', creatRoomApi);
 	var getRoomList = require('./api/getRoomList.js');
@@ -33,7 +37,7 @@ module.exports = function(app, express, path) {
 
 
 	app.use(express.static(path.join(__dirname, '../www'), {
-		maxAge: 1000 * 60 * 60
+		maxAge: 0
 	}));
 
 	//404和错误程序处理
