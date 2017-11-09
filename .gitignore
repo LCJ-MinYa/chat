@@ -49,4 +49,4 @@ Temporary Items
 .apdisk
 
 #配置文件
-.config.js
+/config/config.js
