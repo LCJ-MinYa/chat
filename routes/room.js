@@ -20,7 +20,8 @@ router.get('/', function(req, res, next) {
 	} else {
 		if (req.query.roomId) {
 			res.render('room', {
-				pageName: 'room'
+				pageName: '聊天室-恣意游',
+				page: 'room'
 			});
 		} else {
 			res.redirect('/index');

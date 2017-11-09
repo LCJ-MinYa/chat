@@ -6,7 +6,8 @@ router.get('/', function(req, res, next) {
 		res.redirect('/index');
 	} else {
 		res.render('login', {
-			pageName: 'login'
+			pageName: '登录-恣意游',
+			page: 'login'
 		});
 	}
 });
