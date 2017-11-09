@@ -57,8 +57,8 @@
 							<input type="text" class="login-input" maxlength="30" v-model="email" placeholder="请输入您的邮箱地址">
 						</div>
 						<div class="login-username login-password">
-							<i class="iconfont icon-password"></i>
-							<input type="password" class="login-input" v-model="password" maxlength="15" placeholder="请输入验证码">
+							<i class="iconfont icon-username"></i>
+							<input type="password" class="login-input" v-model="userName" maxlength="15" placeholder="请输入您的昵称">
 						</div>
 						<button type="button" class="login-btn" @click="checkOutMsg('forget')" v-bind="{disabled:reqLoading}">
 							<div class="login-btn-box" :class="{'btn-width':reqLoading}">

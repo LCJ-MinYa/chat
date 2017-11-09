@@ -19,17 +19,21 @@ router.post('/forget', function(req, res) {
 			utils.sendJson(res, 404, err);
 		} else {
 			if (result) {
-				var subject = '恣意游用户重置密码';
-				var url = req.protocol + "://" + req.get('host') + '/login?uid=' + result.uid;
-				var html = '<p>亲爱的用户:</p><br/><p>感谢您使用恣意游重置密码功能.</p><p>请点击以下链接完成重置功能</p>';
-				html += '<p><a href="' + url + '">' + url + '</a></p>';
-				mail.sendMail(req.body.email, subject, html, function(result) {
-					if (result.status == 200) {
-						utils.sendJson(res, 200, result.message);
-					} else {
-						utils.sendJson(res, 404, result.message);
-					}
-				})
+				if (result.userName == req.body.userName) {
+					var subject = '恣意游用户重置密码';
+					var url = req.protocol + "://" + req.get('host') + '/login?uid=' + result.uid;
+					var html = '<p>亲爱的用户:</p><br/><p>感谢您使用恣意游重置密码功能.</p><p>请点击以下链接完成重置功能</p>';
+					html += '<p><a href="' + url + '">' + url + '</a></p>';
+					mail.sendMail(req.body.email, subject, html, function(result) {
+						if (result.status == 200) {
+							utils.sendJson(res, 200, result.message);
+						} else {
+							utils.sendJson(res, 404, result.message);
+						}
+					})
+				} else {
+					utils.sendJson(res, 404, '邮箱与用户名不一致');
+				}
 			} else {
 				utils.sendJson(res, 404, '该邮箱地址暂未注册');
 			}

@@ -59,7 +59,7 @@
 			},
 			checkOutMsg: function(type) {
 				var _this = this;
-				if (type == 'register' || type == 'login') {
+				if (type == 'register' || type == 'login' || type == 'forget') {
 					if (!this.email) {
 						GZL.popue(_this, "邮箱地址不能为空");
 						return;
@@ -70,7 +70,7 @@
 					}
 				}
 
-				if (type == 'register') {
+				if (type == 'register' || type == 'forget') {
 					if (!this.userName) {
 						GZL.popue(_this, "昵称不能为空");
 						return;
