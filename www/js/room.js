@@ -8,7 +8,7 @@
  * ===========================
  */
 (function() {
-	var socket = io('ws://172.16.0.176:8083');
+	var socket = io('wss://chat.ziyiu.com');
 	var uid = GZL.getCookie('uid');
 	var userName = GZL.getCookie('userName');
 	var roomModel = new Vue({
