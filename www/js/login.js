@@ -22,6 +22,7 @@
 				password: "",
 				email: '',
 				confirmPassword: "",
+				isShowFooter: true,
 				popup: {
 					showPopupText: false,
 					popupText: "",
@@ -36,12 +37,21 @@
 			var _this = this;
 			this.$nextTick(function() {
 				_this.firstLoading = false;
-				console.log(GZL.GetQueryString('uid'));
 				if (GZL.GetQueryString('uid')) {
 					_this.reset = true;
 				} else {
 					_this.login = true;
 				}
+
+				//处理安卓顶起视图
+				var height = document.body.scrollHeight;
+				window.onresize = function() {
+					if (document.body.scrollHeight < height) {
+						_this.isShowFooter = false;
+					} else {
+						_this.isShowFooter = true;
+					}
+				};
 			})
 		},
 		methods: {

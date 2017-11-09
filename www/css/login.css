@@ -37,6 +37,7 @@ html,body{
 	width: 80%;
 	overflow: hidden;
 	margin-left: -40%;
+	padding-bottom: 1.5rem;
 	color: #f1f1f1;
 	font-size: 1.6rem;
 }

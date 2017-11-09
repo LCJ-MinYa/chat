@@ -90,7 +90,7 @@
 				</transition>
 
 				<!--foot-->
-				<div class="login-foot-box">
+				<div class="login-foot-box" v-show="isShowFooter">
 					<span @click="toggleShow('forget')" v-show="login">忘记密码</span>
 					<span @click="toggleShow('register')" v-show="login">点击注册</span>
 					<span @click="toggleShow" v-show="register || forget || reset">已有账号，直接登录</span>
