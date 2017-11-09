@@ -3,14 +3,14 @@
  * config
  */
 module.exports = {
-	mongodb: "mongodb://chatRoot:123456@106.15.193.97:9000/chat",
+	mongodb: "mongodb://UserName:Password@IP:PORT/dbName",
 	port: 8083,
 	MAIL: {
 		service: '163',
 		secureConnection: true,
 		port: 465,
 		auth: {
-			user: 'xlzzslzy@163.com',
+			user: '******',
 			pass: '******'
 		}
 	},
