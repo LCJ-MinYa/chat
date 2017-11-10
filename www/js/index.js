@@ -42,8 +42,10 @@
 		},
 		computed: {
 			isLogin: function() {
-				if (this.uid != "undefined" && this.userName != "undefined") return true;
-				else return false;
+				if (this.uid != "undefined" && this.userName != "undefined") {
+					return true;
+				}
+				return false;
 			}
 		},
 		methods: {
