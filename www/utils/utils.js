@@ -133,10 +133,8 @@ var GZL = (function(root, factory) {
                     if (factory.settings.DEBUG) {
                         console.log(_MODULE_NAME, "Ajax Result:", resultData);
                     }
-                    setTimeout(function() {
-                        _this.reqLoading = false;
-                        options.success(resultData);
-                    }, 1500);
+                    _this.reqLoading = false;
+                    options.success(resultData);
                 } else {
                     if (factory.settings.DEBUG) {
                         console.log(_MODULE_NAME, "Ajax Result:", xhr.responseText);
