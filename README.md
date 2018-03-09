@@ -12,3 +12,7 @@
 ![image](https://github.com/LCJ-MinYa/chat/blob/master/www/img/login.PNG)<br />
 ![image](https://github.com/LCJ-MinYa/chat/blob/master/www/img/index.PNG)<br />
 ![image](https://github.com/LCJ-MinYa/chat/blob/master/www/img/room.PNG)<br />
+
+##已知BUG
+* 小米浏览器不能正确监听websocket退出事件
+* 开启了服务器只允许指定IP访问指定端口，数据库连接不稳定
