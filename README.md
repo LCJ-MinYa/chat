@@ -8,7 +8,7 @@
 4.入口文件修改为www/server.js,启动命令npm start<br />
 5.测试请用多个浏览器（设备）进行<br />
 
-##测试账号
+## 测试账号
 > ceshi@ziyiu.com  123456  
 > 123456789@ziyiu.com 123456
 
