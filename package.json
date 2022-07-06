@@ -11,7 +11,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.5.2",
     "express": "~4.14.0",
-    "moment": "^2.17.1",
+    "moment": "^2.29.4",
     "mongoose": "^4.7.1",
     "morgan": "~1.7.0",
     "nodemailer": "^4.3.1",
